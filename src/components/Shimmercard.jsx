@@ -3,7 +3,6 @@
 const Shimmercard = () => {
 
     const array=Array.from({length:20})
-    console.log(array);
     
     return (<>
 

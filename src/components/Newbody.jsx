@@ -41,17 +41,22 @@ const Newbody = () => {
 
   return (
     <>
-
-   
     <div className="flex flex-wrap p-5 gap-2">
     <input
-      className="w-[80%] m-auto h-[4.25rem] p-[12px] border-solid border-red-800 outline-neutral-400 rounded-xl"
-      type="search"
-      placeholder="Search Here..."
-      value={searchInput}
-      onChange={(e) => setSearchInput(e.target.value)}
-    />
-    <button onClick={() => setSearchInput("")}>Clear</button>
+  className="font-bold font-serif w-[80%] m-auto h-[4.25rem] p-[12px] border-solid border-2 border-black rounded-xl mb-4 outline-none" 
+  type="search"
+  placeholder="Search Here..."
+  value={searchInput}
+  onChange={(e) => setSearchInput(e.target.value)}
+/>
+
+<button
+  onClick={() => setSearchInput('')}
+  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded h-16"
+>
+  Clear
+</button>
+
 
     {!allRestaurant.length ? <Shimmercard /> :   filteredRestaurants.map((item, i) => (
       <Card
