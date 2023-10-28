@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Shimmercard from "./Shimmercard";
+import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+
 
 const Newbody = () => {
   const [searchInput, setSearchInput] = useState("");
   const [allRestaurant, setAllRestaurant] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  // console.log(res);
 
   useEffect(() => {
     Apicall();
@@ -30,9 +34,6 @@ const Newbody = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=29.9456906&lng=78.16424780000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    // const cardItem =
-    //   json.data?.success?.cards[1]?.gridWidget?.gridElements?.infoWithStyle
-    //     ?.restaurants || [];
     const cardItem =
       json.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     setAllRestaurant(cardItem);
@@ -41,9 +42,10 @@ const Newbody = () => {
 
   return (
     <>
-    <div className="flex flex-wrap p-5 gap-2">
+    
+    <div className="flex flex-wrap p-5 gap-2 ">
     <input
-  className="font-bold font-serif w-[80%] m-auto h-[4.25rem] p-[12px] border-solid border-2 border-black rounded-xl mb-4 outline-none" 
+  className=" text-lg font-bold font-serif w-[80%] m-auto h-[4.25rem] p-[12px] border-solid border-2 border-black rounded-xl mb-4 outline-none" 
   type="search"
   placeholder="Search Here..."
   value={searchInput}
@@ -58,18 +60,27 @@ const Newbody = () => {
 </button>
 
 
-    {!allRestaurant.length ? <Shimmercard /> :   filteredRestaurants.map((item, i) => (
+    {!allRestaurant.length ? <Shimmercard /> :
+
+      
+      filteredRestaurants.map((item, i) => (
+     
+     <Link key={item.info.name} to={`/restaurants/${item.info.cloudinaryImageId}`}>
       <Card
         key={i}
         // name={item.info.name}
+        resto={{...filteredRestaurants.info}}
         name={item.info.name}
         img={item.info.cloudinaryImageId}
         rating={item.info.avgRating}
         price={item.info.feeDetails.totalFee}
         area={item.info.areaName}
+        id={item.info.id}
       />
+       </Link>
     ))
     }
+    
   </div> 
    
   </>
